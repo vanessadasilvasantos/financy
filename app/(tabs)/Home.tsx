@@ -1,10 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
+import { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import Releases from '../components/Releases';
+import ModalAddReleases from '../components/ModalAddReleases';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 
 export default function HomeScreen() {
+    const [visibleModal, setVisiblelModal] = useState(false)
+
     const today = new Date()
     var todayMonth = today.toLocaleString('pt-BR', {month: 'long'})
     var todayYear = today.toLocaleString('pt-BR', {year: 'numeric'})
@@ -47,14 +52,18 @@ export default function HomeScreen() {
             </View>
             <View style={styles.releasesBefore}></View>
             <View>
-                <Releases/>
-                <Releases/>
-                <Releases/>
+                <Releases icon={FontAwesome6} title='Mercado' value={450.00}/>
+                <Releases icon={FontAwesome6} title='Mercado' value={450.00}/>
+                <Releases icon={FontAwesome6} title='Mercado' value={450.00}/>
             </View>
         </View>
-            <TouchableOpacity style={styles.btnAdd}>
+            <TouchableOpacity style={styles.btnAdd} onPress={() => setVisiblelModal(true)}>
                 <Text style={styles.btnAddText}>+</Text>
             </TouchableOpacity>
+
+            <Modal visible={visibleModal} transparent={true} onRequestClose={ () => setVisiblelModal(false) }>
+                <ModalAddReleases handleClose={() => setVisiblelModal(false)} />
+            </Modal>
     </View>
   );
 }
@@ -124,6 +133,7 @@ const styles = StyleSheet.create({
     releasesHeader: {
         display: 'flex',
         padding: 20,
+        paddingBottom: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -146,15 +156,15 @@ const styles = StyleSheet.create({
     btnAdd: {
         position: "absolute",
         bottom: 30,
-        alignSelf: "center", 
+        alignSelf: "center",
         width: 60,
         height: 60,
-        borderRadius: 30,       // deixa redondo
+        borderRadius: 30,
         backgroundColor: "#000",
         justifyContent: "center",
         alignItems: "center",
-        elevation: 5,           // sombra no Android
-        shadowColor: "#000",    // sombra no iOS
+        elevation: 5,
+        shadowColor: "#000",
         shadowOpacity: 0.3,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 4,
@@ -165,3 +175,4 @@ const styles = StyleSheet.create({
         marginBottom: 6,
     }
 })
+

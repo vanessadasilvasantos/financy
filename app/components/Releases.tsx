@@ -2,23 +2,24 @@ import { View, Text, StyleSheet } from "react-native";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import React from "react";
 
 
-const Releases = () => {
+const Releases = (props: {icon: React.ElementType, title: string, value: number}) => {
     return(
         <View style={styles.releaseContainer}>
             <View style={styles.releaseIconContainer}>
                 <View style={styles.releaseIcon}>
-                    <FontAwesome6 name="basket-shopping" size={18} color="#DA4BDD" />
+                    <props.icon name="basket-shopping" size={18} color="#DA4BDD" />
                 </View>
                 <View>
-                    <Text style={styles.releaseTitle}>Mercado</Text>
+                    <Text style={styles.releaseTitle}>{props.title}</Text>
                     <Text style={styles.releaseDate}>08/25/2006</Text>
                 </View>
             </View>
             <View style={styles.releaseValueContainer}>
                 <Text style={styles.releaseDate}>R$</Text>
-                <Text style={styles.releaseValue}>450,00</Text>
+                <Text style={styles.releaseValue}>{props.value}</Text>
                 <MaterialIcons name="keyboard-arrow-down" size={14} color="#D93A4A" style={{marginRight: 6}}/>
                 <MaterialCommunityIcons name="trash-can-outline" size={16} color="#DA4BDD" />
             </View>
